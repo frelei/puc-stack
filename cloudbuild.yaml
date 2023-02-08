@@ -13,7 +13,6 @@ steps:
       [
         'push',
         'gcr.io/$PROJECT_ID/puc-fullstack:$SHORT_SHA',
-        '.'
       ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
