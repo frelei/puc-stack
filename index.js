@@ -29,6 +29,10 @@ app.get('/', (req, res) => {
     res.send(`Hello World`);
 })
 
+app.get('/welcome', (req, res) => {
+    res.send(`welcome`);
+})
+
 app.get('/cool', (req, res) => {
     res.send(cool());
 })
