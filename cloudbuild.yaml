@@ -1,5 +1,5 @@
 steps:
-  - name: 'grc.io/cloud-builders/docker'
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
@@ -16,7 +16,7 @@ steps:
         'gcr.io/$PROJECT_ID/puc-fullstack:$SHORT_SHA',
         '.'
       ]
-      
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       [
