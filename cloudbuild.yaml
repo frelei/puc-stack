@@ -12,7 +12,6 @@ steps:
     args: 
       [
         'push',
-        '-t',
         'gcr.io/$PROJECT_ID/puc-fullstack:$SHORT_SHA',
         '.'
       ]
