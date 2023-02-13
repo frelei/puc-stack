@@ -1,4 +1,7 @@
 require('dotenv').config()
+const rateLimiter = require('express-rate-limit')
+const helmet = require('helmet')
+const xss = require('xss-clean')
 const mysql = require('mysql2')
 const cool = require('cool-ascii-faces')
 const express = require('express')
@@ -13,6 +16,15 @@ const mysqlConfig = {
     port: process.env.DB_PORT,
 };
 
+const limiter = rateLimiter.rateLimit({
+    windowMs: 60 * 60 * 1000, 
+    max: 1000, 
+    message: "You have exceeded the 1 request in 24 hours"
+})
+
+app.use(limiter)
+app.use(xss())
+app.use(helmet())
 const connection = mysql.createConnection(mysqlConfig);
 
 app.get('/data', (req, res) => {
@@ -26,11 +38,11 @@ app.get('/data', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send(`Hello World`);
+    res.send(`<H1>Hello World</H1>`);
 })
 
 app.get('/welcome', (req, res) => {
-    res.send(`welcome`);
+    res.send(req.query.text)
 })
 
 app.get('/cool', (req, res) => {
@@ -40,3 +52,4 @@ app.get('/cool', (req, res) => {
 app.listen(port, () => {
     console.log(`start listening ${port}`)
 })
+
